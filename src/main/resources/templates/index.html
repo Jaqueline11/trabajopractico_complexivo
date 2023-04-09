@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeLeaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Cliente</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    nav {
+      background-color: #333;
+      overflow: hidden;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav li {
+      float: left;
+    }
+    nav li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    nav li a:hover {
+      background-color: #111;
+    }
+
+    /* Estilos para la sección principal */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+    }
+    p {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a  th:href="@{/app/}">Inicio</a></li>
+    <li><a th:href="@{/app/clientes}">Cliente</a></li>
+    <li><a th:href="@{/app/listaralquiler}">Alquiler Disfraz</a></li>
+    <li><a th:href="@{/app/listar}">Disfraz</a></li>
+  </ul>
+</nav>
+<span th:text="${cliente.cedula}"></span>
+<br>
+<span th:text="${cliente.nombres_cliente}"></span>
+<span th:text="${cliente.apellidos_cliente}"></span>
+<br>
+<span th:if="${cliente.estado_cliente == true}" th:text="${cliente.estado_cliente}"></span>
+<span th:if="${cliente.estado_cliente == false}" th:text="'el cliente esta inactivo'"></span>
+ <h2>Tabla de Clientes</h2>
+<div th:if="${clientes.size()==0}"> No hay usuarios en la lista</div>
+  <table th:if="${clientes.size()>0}">
+    <thead>
+    <tr>
+      <th>ID Cliente</th>
+      <th>Cédula</th>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>Dirección</th>
+      <th>Estado</th>
+      <th>Vizualizar</th>
+      <th>Editar</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="cliente: ${clientes}">
+      <td th:text="${cliente.id_cliente}"></td>
+      <td th:text="${cliente.cedula}"></td>
+      <td th:text="${cliente.nombres_cliente}"></td>
+      <td th:text="${cliente.apellidos_cliente}"></td>
+      <td th:text="${cliente.direccion_cliente}"></td>
+
+      <td>
+        <span th:if="${cliente.estado_cliente == true}" th:text="'el cliente esta activo'"></span>
+        <span th:if="${cliente.estado_cliente == false}" th:text="'el cliente esta inactivo'"></span>
+      </td>
+      <td><a  th:href="@{/app/ver/{id}(id=${cliente.id_cliente})}"><i class="far fa-eye"></i></a></td>
+      <td><a  th:href="@{/app/guardarClient(id=${cliente.id_cliente})}"><i class="far fa-edit"></i></a></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</body>
+</html>
+

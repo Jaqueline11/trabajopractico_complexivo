@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Disfraz</title>
+  <style>
+    nav {
+      background-color: #333;
+      overflow: hidden;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav li {
+      float: left;
+    }
+    nav li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    nav li a:hover {
+      background-color: #111;
+    }
+
+    /* Estilos para la sección principal */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+    }
+    p {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    form {
+      background-color: #fff;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type=text], textarea {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      resize: none;
+    }
+
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .form-group {
+      width: 100%;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a  th:href="@{/app//}">Inicio</a></li>
+    <li><a th:href="@{/app/clientes}">Cliente</a></li>
+    <li><a th:href="@{/app/listaralquiler}">Alquiler Disfraz</a></li>
+    <li><a th:href="@{/app/listar}">Disfraz</a></li>
+  </ul>
+</nav>
+<form th:action="@{/app/guardarCliente}" method="post" >
+  <h2>Formulario de Cliente</h2>
+  <div class="container">
+
+    <div class="form-group">
+      <label >Cédula:</label>
+      <input type="text"  th:value="${cliente.cedula}" th:field="*{cliente.cedula}"  readonly>
+
+    </div>
+    <div class="form-group">
+      <label >Nombres:</label>
+      <input type="text"  th:value="${cliente.nombres_cliente}" th:field="*{cliente.nombres_cliente}" >
+
+    </div>
+    <div class="form-group">
+      <label >Apellidos:</label>
+      <input type="text"  th:value="${cliente.apellidos_cliente}" th:field="*{cliente.apellidos_cliente}"  >
+
+    </div>
+    <div class="form-group">
+      <label >Dirección:</label>
+      <input type="text"  th:value="${cliente.direccion_cliente}" th:field="*{cliente.direccion_cliente}"  >
+
+    </div>
+
+
+
+    <input type="submit" value="Guardar" >
+  </div>
+</form>
+</body>
+</html>
