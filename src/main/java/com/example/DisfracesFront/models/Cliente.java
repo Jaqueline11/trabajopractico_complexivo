@@ -1,11 +1,20 @@
 package com.example.DisfracesFront.models;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class Cliente {
+
+
     private Long id_cliente;
+    @NotEmpty
     private String cedula;
+    @NotEmpty
     private String nombres_cliente;
+    @NotEmpty
     private String apellidos_cliente;
+    @NotEmpty
     private String direccion_cliente;
+
     private Boolean estado_cliente;
 
     public Long getId_cliente() {

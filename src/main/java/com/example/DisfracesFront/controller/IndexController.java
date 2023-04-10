@@ -4,9 +4,11 @@ package com.example.DisfracesFront.controller;
 import com.example.DisfracesFront.models.AlquilerDisfraz;
 import com.example.DisfracesFront.models.Cliente;
 import com.example.DisfracesFront.models.Disfraces;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -91,23 +93,23 @@ public class IndexController {
             return "redirect:/app/clientes";
         }
     }
-
     @PostMapping("/guardarCliente")
-    public String guardarCliente(@ModelAttribute Cliente cliente, Model model) {
-        // Buscar el cliente a editar por su id
+    public String guardarCliente(@Valid Cliente cliente, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "cliente";
+        }
         Cliente clienteEditado = clientes.stream().filter(c -> c.getCedula().equals(cliente.getCedula())).findFirst().orElse(null);
-
         if (clienteEditado != null) {
             // Actualizar los datos del cliente
             clienteEditado.setNombres_cliente(cliente.getNombres_cliente());
             clienteEditado.setApellidos_cliente(cliente.getApellidos_cliente());
             clienteEditado.setDireccion_cliente(cliente.getDireccion_cliente());
         }
-
-        // Agregar la lista de clientes al modelo para que esté disponible en la vista
-        model.addAttribute("clientes", clientes);
-
-        // Redirigir al listado de clientes
+        int id=clientes.size()+1;
+        long idl=(long) id;
+        cliente.setId_cliente(idl);
+        clientes.add(cliente);
+        model.addAttribute("cliente", clientes);
         return "redirect:/app/clientes";
     }
 
